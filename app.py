@@ -6,7 +6,6 @@ import hashlib
 import io
 from PIL import Image
 import base64
-import os
 
 # กำหนดค่าหน้าเว็บ
 st.set_page_config(
@@ -693,17 +692,8 @@ def admin_dashboard():
                     ORDER BY b.created_at DESC
                 """, conn)
                 
-                # สร้างไฟล์ Excel
-                output = io.BytesIO()
-                with pd.ExcelWriter(output, engine='openpyxl') as writer:
-                    bookings_export_df.to_excel(writer, sheet_name='การจอง', index=False)
-                
-                st.download_button(
-                    label="ดาวน์โหลดข้อมูลการจอง",
-                    data=output.getvalue(),
-                    file_name=f"booking_data_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                )
+                # แสดงตารางข้อมูล
+                st.dataframe(bookings_export_df)
         
         with col2:
             if st.button("ส่งออกข้อมูลผู้ใช้"):
@@ -715,17 +705,8 @@ def admin_dashboard():
                     ORDER BY created_at DESC
                 """, conn)
                 
-                # สร้างไฟล์ Excel
-                output = io.BytesIO()
-                with pd.ExcelWriter(output, engine='openpyxl') as writer:
-                    users_export_df.to_excel(writer, sheet_name='ผู้ใช้', index=False)
-                
-                st.download_button(
-                    label="ดาวน์โหลดข้อมูลผู้ใช้",
-                    data=output.getvalue(),
-                    file_name=f"users_data_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx",
-                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                )
+                # แสดงตารางข้อมูล
+                st.dataframe(users_export_df)
         
         conn.close()
 
