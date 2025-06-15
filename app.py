@@ -1135,7 +1135,7 @@ def update_booking_status(booking_id, new_status):
             bookings[i]['status'] = new_status
             save_bookings(bookings)
             st.success(f"✅ อัปเดตสถานะการจอง {booking_id[:8]}... เป็น '{new_status}' สำเร็จ")
-                        st.rerun()
+            st.rerun()
             return
     
     st.error("❌ ไม่พบรายการจองที่เลือก")
