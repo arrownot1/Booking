@@ -331,13 +331,6 @@ def get_status_badge(status):
 
 # --- หน้าหลัก (Landing Page) - ปรับปรุงใหม่ ---
 def main_page():
-    st.set_page_config(
-        page_title="ระบบจองห้องกิจกรรม",
-        page_icon="🏠",
-        layout="wide",
-        initial_sidebar_state="expanded"
-    )
-    
     load_css()
     
     # Header
