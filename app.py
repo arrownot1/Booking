@@ -329,6 +329,35 @@ def get_status_badge(status):
     text, css_class = status_map.get(status, (status, 'status-pending'))
     return f'<span class="status-badge {css_class}">{text}</span>'
 
+def initialize_admin():
+    """สร้างบัญชี admin เริ่มต้นถ้ายังไม่มี"""
+    users = load_users()
+    
+    # ตรวจสอบว่ามี admin อยู่แล้วหรือไม่
+    admin_exists = any(user.get('role') == 'admin' for user in users.values())
+    
+    if not admin_exists:
+        # สร้างบัญชี admin เริ่มต้น
+        admin_data = {
+            'username': 'admin',
+            'password': hash_password('admin123'),  # รหัสผ่านเริ่มต้น
+            'full_name': 'ผู้ดูแลระบบ',
+            'room_number': 'ADMIN',
+            'phone_number': '000-000-0000',
+            'user_status': 'ผู้ดูแลระบบ',
+            'role': 'admin',
+            'status': 'approved',
+            'registration_date': datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            'id_photo_filename': None
+        }
+        
+        users['admin'] = admin_data
+        save_users(users)
+        print("✅ สร้างบัญชี admin เริ่มต้นเรียบร้อยแล้ว")
+        print("ชื่อผู้ใช้: admin")
+        print("รหัสผ่าน: admin123")
+
+
 # --- หน้าหลัก (Landing Page) - ปรับปรุงใหม่ ---
 def main_page():
     load_css()
