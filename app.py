@@ -309,26 +309,6 @@ def save_bookings(bookings):
     with open(BOOKINGS_FILE, 'w', encoding='utf-8') as f:
         json.dump(bookings, f, indent=4, ensure_ascii=False)
 
-def check_login_status():
-    return st.session_state.get('logged_in', False)
-
-def get_current_user_role():
-    return st.session_state.get('user_role', 'guest')
-
-def get_current_username():
-    return st.session_state.get('username', None)
-
-def get_status_badge(status):
-    """สร้าง HTML badge สำหรับสถานะ"""
-    status_map = {
-        'pending': ('รออนุมัติ', 'status-pending'),
-        'approved': ('อนุมัติแล้ว', 'status-approved'),
-        'rejected': ('ปฏิเสธ', 'status-rejected'),
-        'cancelled_by_user': ('ยกเลิกแล้ว', 'status-rejected')
-    }
-    text, css_class = status_map.get(status, (status, 'status-pending'))
-    return f'<span class="status-badge {css_class}">{text}</span>'
-
 def initialize_admin():
     """สร้างบัญชี admin เริ่มต้นถ้ายังไม่มี"""
     users = load_users()
@@ -357,6 +337,26 @@ def initialize_admin():
         print("ชื่อผู้ใช้: admin")
         print("รหัสผ่าน: admin123")
 
+
+def check_login_status():
+    return st.session_state.get('logged_in', False)
+
+def get_current_user_role():
+    return st.session_state.get('user_role', 'guest')
+
+def get_current_username():
+    return st.session_state.get('username', None)
+
+def get_status_badge(status):
+    """สร้าง HTML badge สำหรับสถานะ"""
+    status_map = {
+        'pending': ('รออนุมัติ', 'status-pending'),
+        'approved': ('อนุมัติแล้ว', 'status-approved'),
+        'rejected': ('ปฏิเสธ', 'status-rejected'),
+        'cancelled_by_user': ('ยกเลิกแล้ว', 'status-rejected')
+    }
+    text, css_class = status_map.get(status, (status, 'status-pending'))
+    return f'<span class="status-badge {css_class}">{text}</span>'
 
 # --- หน้าหลัก (Landing Page) - ปรับปรุงใหม่ ---
 def main_page():
