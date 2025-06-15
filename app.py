@@ -6,6 +6,13 @@ import hashlib
 import uuid
 from io import BytesIO
 
+st.set_page_config(
+    page_title="ระบบจองห้องกิจกรรม",
+    page_icon="🏠",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
 # --- การกำหนดค่า CSS สำหรับ Mobile-First Design ---
 def load_css():
     st.markdown("""
